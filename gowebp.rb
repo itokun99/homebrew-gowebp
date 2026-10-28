@@ -7,11 +7,14 @@ class Gowebp < Formula
   license "MIT"
 
   def install
-    bin.install "bin/gowebp"
-    (libexec/"libwebp/bin").mkpath
-    libexec/"libwebp/bin".install Dir["lib/libwebp_osx_arm64/bin/*"]
-    (bin/"gowebp").write_env_script(libexec/"gowebp",
-      WEBP_CONVERTER_BIN_DIR: "#{libexec}/libwebp/bin")
+    libexec.install "bin/gowebp"
+    webp_bin = libexec/"libwebp"/"bin"
+    webp_bin.mkpath
+    Dir.glob("lib/libwebp_osx_arm64/bin/*").each do |f|
+      webp_bin.install f
+    end
+    (bin/"gowebp").write_env_script libexec/"gowebp",
+      WEBP_CONVERTER_BIN_DIR => "#{libexec}/libwebp/bin"
   end
 
   test do
