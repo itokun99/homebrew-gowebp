@@ -14,7 +14,7 @@ class Gowebp < Formula
       webp_bin.install f
     end
     (bin/"gowebp").write_env_script libexec/"gowebp",
-      WEBP_CONVERTER_BIN_DIR => "#{libexec}/libwebp/bin"
+      "WEBP_CONVERTER_BIN_DIR" => "#{libexec}/libwebp/bin"
   end
 
   test do
